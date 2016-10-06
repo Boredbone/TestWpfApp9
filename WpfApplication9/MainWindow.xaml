@@ -5,8 +5,80 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApplication9"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="350" Width="525"
+        Closing="Window_Closing">
+    
+    <Window.DataContext>
+        <local:MainWindowViewModel/>
+    </Window.DataContext>
+    
+    <Window.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="Margin" Value="2"/>
+        </Style>
+    </Window.Resources>
+    
     <Grid>
-        
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0">
+
+            <ProgressBar Height="16" IsIndeterminate="True"/>
+
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Count"/>
+                <TextBox Text="{Binding Count.Value,Mode=TwoWay}" Width="50"/>
+            </StackPanel>
+
+            <Grid HorizontalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="WorkerThreads" Grid.Row="0" Grid.Column="1"/>
+                <TextBlock Text="CompletionPortThreads" Grid.Row="0" Grid.Column="2"/>
+
+
+                <TextBlock Text="Max" Grid.Row="1" Grid.Column="0"/>
+                <TextBlock Text="{Binding MaxWorkerThreads.Value}" Grid.Row="1" Grid.Column="1"/>
+                <TextBlock Text="{Binding MaxCompletionPortThreads.Value}" Grid.Row="1" Grid.Column="2"/>
+
+                <TextBlock Text="Min" Grid.Row="2" Grid.Column="0"/>
+                <TextBlock Text="{Binding MinWorkerThreads.Value}" Grid.Row="2" Grid.Column="1"/>
+                <TextBlock Text="{Binding MinCompletionPortThreads.Value}" Grid.Row="2" Grid.Column="2"/>
+
+
+                <TextBlock Text="Available" Grid.Row="3" Grid.Column="0"/>
+                <TextBlock Text="{Binding AvailableWorkerThreads.Value}" Grid.Row="3" Grid.Column="1"/>
+                <TextBlock Text="{Binding AvailableCompletionPortThreads.Value}" Grid.Row="3" Grid.Column="2"/>
+
+
+                <TextBlock Text="Busy" Grid.Row="4" Grid.Column="0"/>
+                <TextBlock Text="{Binding BusyWorkerThreads.Value}" Grid.Row="4" Grid.Column="1"/>
+                <TextBlock Text="{Binding BusyCompletionPortThreads.Value}" Grid.Row="4" Grid.Column="2"/>
+                
+            </Grid>
+
+            <Button Content="work1" Command="{Binding HeavyWorkCommand1}"/>
+            <Button Content="work2" Command="{Binding HeavyWorkCommand2}"/>
+            <Button Content="work3" Command="{Binding HeavyWorkCommand3}"/>
+
+        </StackPanel>
+
+        <ListView Grid.Column="1" ItemsSource="{Binding Log}">
+            
+        </ListView>
     </Grid>
 </Window>

@@ -24,5 +24,13 @@ namespace WpfApplication9
         {
             InitializeComponent();
         }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (!e.Cancel)
+            {
+                (this.DataContext as IDisposable)?.Dispose();
+            }
+        }
     }
 }
